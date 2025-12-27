@@ -4910,8 +4910,8 @@ void transceiver_config_t::load() {
         this->CSNPin = 14;
         break;
       default:
-        this->TXPin = 13;
-        this->RXPin = 12;
+        this->TXPin = 2;
+        this->RXPin = 4;
         this->MOSIPin = 23;
         this->MISOPin = 19;
         this->SCKPin = 18;

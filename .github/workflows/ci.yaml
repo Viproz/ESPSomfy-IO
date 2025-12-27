@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 env:
   ARDUINO_BOARD_MANAGER_ADDITIONAL_URLS: "https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_dev_index.json"
-  ARDUINO_CLI_VERSION: "0.x"
+  ARDUINO_CLI_VERSION: "1.4.0"
   ARDUINO_ESP32_VERSION: "2.0.10"
   ARDUINO_JSON_VERSION: "6.21.3"
   ESPTOOL_VERSION: "4.6"
@@ -22,17 +22,17 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Checkout mklittlefs
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: earlephilhower/mklittlefs
           path: mklittlefs
           ref: ${{ env.MKLITTLEFS_VERSION }}
 
       - name: Checkout LittleFS
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: littlefs-project/littlefs
           path: mklittlefs/littlefs
@@ -47,7 +47,7 @@ jobs:
           ./mklittlefs/mklittlefs --create data --size 1441792 SomfyController.littlefs.bin
 
       - name: Upload binaries
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: LittleFS
           path: SomfyController.littlefs.bin
@@ -85,12 +85,12 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: SomfyController
 
       - name: Get LittleFS
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: LittleFS
 
@@ -109,7 +109,7 @@ jobs:
           pip install esptool==${{ env.ESPTOOL_VERSION }}
 
       - name: Install Arduino CLI
-        uses: arduino/setup-arduino-cli@v1
+        uses: arduino/setup-arduino-cli@v2
         with:
           version: ${{ env.ARDUINO_CLI_VERSION }}
 
@@ -140,7 +140,7 @@ jobs:
             0x290000 SomfyController.littlefs.bin
 
       - name: Upload ${{ matrix.name }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.name }}
           path: |
